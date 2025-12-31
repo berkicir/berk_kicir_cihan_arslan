@@ -42,8 +42,9 @@ Geliştirilen algoritma iki farklı senaryoda test edilmiştir:
     * Donanım sınırlarının zorlandığı durumlarda bile algoritma mevcut kapasiteyi en verimli şekilde kullanarak hatayı minimize etmiştir.
 
 ## 📂 Dosya Yapısı
-* `src/`: Optimizasyonun yapıldığı Matlab kodu (`haa_kompanzasyon.m`).
-* `images/`: Simülasyon sonuçlarına ait grafikler.
+* `main`: Yapılan kompanzasyon optimizasyonu projesi hakkında genel bilgilendirme (`readme.md`).
+* `src/`: Kompanzasyon sisteminin optimizasyonunun yapıldığı matlab kodu (`haa_kompanzasyon.m`).
+* `images/`: Simülasyon sonuçlarına ait grafikler (`Graph 1`, (`Graph 2`)).
 
 ---
 *Bu proje TÜBİTAK 2209-A programı kapsamında hazırlanmıştır.
