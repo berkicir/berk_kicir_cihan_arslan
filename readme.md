@@ -1,50 +1,78 @@
-# Harmoni Arama Algoritması Kullanılarak Kompanzasyon Sistemlerinin Optimizasyonu
+# Harmoni Arama Algoritması Tabanlı Reaktif Güç Kompanzasyon Optimizasyonu
 
-**Ders:** Makine Öğrenmesi ve Optimizasyon Mühendislik Uygulamaları  
-**Dönem:** 2025 Bahar  
+**Ders:** Makine Öğrenmesi ve Optimizasyon Mühendislik Uygulamaları
 **Kurum:** KTO Karatay Üniversitesi - Mühendislik ve Doğa Bilimleri Fakültesi
+**Dönem:** 2025 Bahar
 
-## 👥 Proje Ekibi
-* **Berk KICIR** - 241451040
-* **Cihan ARSLAN** - 231451030
-* **Danışman:** Dr. Öğr. Üyesi Esra URAY
+## 👨‍🔬 Proje Grubu
+* **Berk KICIR** (241451040)
+* **Cihan ARSLAN** (231451030)
+* **Akademik Danışman:** Dr. Öğr. Üyesi Esra URAY
 
 ---
 
-## 📝 Proje Tanımı ve Problem
-Elektrik şebekelerinde enerji verimliliği ve hat güvenliği için reaktif güç kompanzasyonu kritiktir. EPDK ve TEDAŞ mevzuatlarına göre işletmelerin endüktif reaktif oranlarını **%20**, kapasitif oranlarını ise **%15** sınırları içerisinde tutması gerekmektedir.
+## 📑 Proje Özeti (Abstract)
+Elektrik güç sistemlerinde, endüktif ve kapasitif yüklerin dinamik değişimi, şebeke kararlılığını ve enerji verimliliğini doğrudan etkilemektedir. [cite_start]TEDAŞ regülasyonlarına göre, işletmelerin reaktif güç tüketimlerini belirli sınırlar (Endüktif <%20, Kapasitif <%15) içerisinde tutmaları zorunludur[cite: 220, 221, 222].
 
-Ancak, düzensiz kondansatör kademelerine (Örn: 1, 1.5, ..., 60 kVAr) sahip tesislerde geleneksel yöntemler yetersiz kalabilmektedir. Bu proje, **Harmoni Arama Algoritması (Harmony Search Algorithm - HSA)** kullanarak bu problemi "Kısıtlı Kombinatoryal Optimizasyon" problemi olarak modeller ve en uygun kondansatör anahtarlamasını gerçekleştirir.
+Geleneksel kompanzasyon röleleri, genellikle "sıralı anahtarlama" mantığıyla çalışmakta olup, kondansatör kademelerinin **ayrık (discrete)** ve düzensiz (non-uniform) olduğu karmaşık panolarda optimum anahtarlamayı sağlamada yetersiz kalabilmektedir. [cite_start]Bu çalışmada, türev gerektirmeyen stokastik bir optimizasyon yöntemi olan **Harmoni Arama Algoritması (Harmony Search Algorithm - HSA)** kullanılarak, **Kısıtlı Kombinatoryal Optimizasyon (Constrained Combinatorial Optimization)** problemi modellenmiş ve çözülmüştür[cite: 292, 293, 294].
 
-## 🚀 Kullanılan Yöntem ve Algoritma
-Projede **MATLAB** ortamında geliştirilen **Harmony Search Algorithm (HSA)** kullanılmıştır. Algoritma, türev gerektirmeyen yapısı ve ayrık (discrete) değişkenlerdeki başarısı nedeniyle tercih edilmiştir.
+[cite_start]Projenin temel amacı, cezalı amaç fonksiyonu (penalized cost function) yaklaşımıyla reaktif güç hatasını minimize etmek ve anahtarlama elemanlarının (kondansatörlerin) ömrünü uzatacak optimum kondansatör kombinasyonunu belirlemektir[cite: 289, 290].
 
-### Algoritma Parametreleri:
-* **HMS (Harmoni Hafıza Boyutu):** 60
-* **HMCR (Hafıza Kabul Oranı):** 0.98 (Kararlı yakınsama için)
-* **PAR (Ton Ayarlama Oranı):** 0.45 (Yerel minimumdan kaçış için)
-* **Maksimum İterasyon:** 10.000
+---
 
-### Amaç Fonksiyonu (Cost Function):
-Sistemin başarısı şu formülize edilmiş ceza fonksiyonu ile ölçülür:
-$$Cost = |Q_{yük} - Q_c| + Ceza$$
-Burada sistem %20 endüktif veya %15 kapasitif sınırını aşarsa, algoritmaya **100.000** katsayılı çok yüksek bir ceza puanı eklenir. Ayrıca, kontaktör ömrünü uzatmak amacıyla büyük güçlü kondansatörlere ağırlık cezası uygulanarak "hassas" (küçük) kademelerin seçimi teşvik edilir.
+## ⚙️ Yöntem ve Algoritmik Tasarım
 
-## 📊 Sonuçlar
-Geliştirilen algoritma iki farklı senaryoda test edilmiştir:
+Problem, sürekli değişkenler yerine {0,1} durumlarını içeren ayrık bir çözüm uzayında tanımlanmıştır. [cite_start]MATLAB ortamında geliştirilen algoritma, aşağıda belirtilen parametre seti ile işletilmiştir[cite: 299, 300, 301, 302]:
 
-1.  **İdeal Yüklenme (100 kW Aktif / 80 kVAr Endüktif):**
-    * Algoritma 10.000 iterasyon sonunda **0.00 kVAr** net hata ile tam kompanzasyon sağlamıştır.
-    * Reaktif oran **%0.00** olarak gerçekleşmiştir.
-    * Sistem güvenli bölgede tutulmuştur.
+| Parametre | Sembol | Değer | Teknik Açıklama |
+|---|---|---|---|
+| **Harmoni Hafıza Boyutu** | $HMS$ | 60 | Çözüm uzayını tarayan popülasyon vektör büyüklüğü. |
+| **Hafıza Kabul Oranı** | $HMCR$ | 0.98 | Algoritmanın mevcut iyi çözümleri koruma eğilimi (Exploitation). |
+| **Ton Ayarlama Oranı** | $PAR$ | 0.45 | Yerel minimum tuzaklarından kaçış için kullanılan mutasyon olasılığı (Exploration). |
+| **Maksimum İterasyon** | $MaxIter$ | 10,000 | Yakınsama kriteri. |
 
-2.  **Yetersiz Donanım Senaryosu:**
-    * Donanım sınırlarının zorlandığı durumlarda bile algoritma mevcut kapasiteyi en verimli şekilde kullanarak hatayı minimize etmiştir.
+### Amaç Fonksiyonunun Matematiksel Modeli
+[cite_start]Sistemin maliyet fonksiyonu ($Cost$), net reaktif güç hatası ve kısıt ihlalleri üzerinden aşağıdaki gibi formülize edilmiştir[cite: 312, 313, 316]:
+
+$$Min(f) = |Q_{net}| + P_{regülasyon} + P_{donanım}$$
+
+Burada;
+* **$Q_{net}$:** Hedeflenen (Yük) ve Gerçekleşen (Kondansatör) reaktif güç arasındaki fark.
+* **$P_{regülasyon}$:** %20 Endüktif veya %15 Kapasitif sınırları aşıldığında uygulanan yüksek katsayılı ($10^5$) ceza fonksiyonu.
+* **$P_{donanım}$:** Büyük güçlü kondansatörlerin gereksiz anahtarlamasını önlemek için uygulanan ağırlıklı ceza katsayısı ($steps^{1.5} \times 0.05$).
+
+---
+
+## 📊 Deneysel Bulgular ve Senaryo Analizi
+
+Geliştirilen algoritmanın performansı ve gürbüzlüğü (robustness), iki farklı uç senaryo (Case Study) üzerinde test edilmiştir.
+
+### Durum 1: Nominal Yüklenme ve Tam Kompanzasyon (Ideal Case)
+Sistemin aktif güç talebinin 100 kW ve reaktif yükün 80 kVAr olduğu, donanım kapasitesinin yeterli olduğu durumdur.
+
+* **Sistem Durumu:** Kararlı (Stable)
+* **Sonuç:** Algoritma, çözüm uzayındaki global optimum noktayı tespit etmiştir. Büyük kademeler yerine "hassas" (küçük değerli) kondansatör gruplarına öncelik vererek **0.00 kVAr** hata ile sistemi dengeye oturtmuştur.
+* **Teknik Çıkarım:** HSA, ayrık değişkenli sistemlerde türevsel yöntemlere ihtiyaç duymadan sıfır hataya yakınsayabilmektedir.
+
+![Nominal Yük Analizi](images/Graph2.jpg)
+*Grafik 2: Nominal yük altında optimizasyon sürecinin yakınsama grafiği ve kapasitif bölge yerleşimi.*
+
+### Durum 2: Doyum Bölgesi ve Yetersiz Kapasite (Saturation Case)
+Bu senaryoda, işletmenin endüktif yük talebinin (300 kVAr), panodaki toplam kurulu gücü (207.5 kVAr) aştığı bir "arıza/yetersizlik" durumu simüle edilmiştir.
+
+* **Sistem Durumu:** Doyum (Saturation)
+* **Sonuç:** Fiziksel olarak tam kompanzasyonun imkansız olduğu bu durumda, algoritma **çökme (divergence)** yaşamamıştır. Mevcut tüm kondansatörleri devreye alarak hatayı fiziksel olarak mümkün olan en alt limit olan **%37** seviyesine çekmiştir.
+* **Teknik Çıkarım:** Algoritma, kısıtların fiziksel olarak sağlanamadığı durumlarda dahi kararlı yapısını koruyarak "Best-Effort" (En iyi çaba) prensibiyle çalışmaktadır.
+
+![Doyum Bölgesi Analizi](images/Graph1.jpg)
+*Grafik 1: Donanım sınırlarının zorlandığı senaryoda algoritmanın kararlılık analizi.*
+
+---
 
 ## 📂 Dosya Yapısı
-* `main`: Yapılan kompanzasyon optimizasyonu projesi hakkında genel bilgilendirme (`readme.md`).
-* `src/`: Kompanzasyon sisteminin optimizasyonunun yapıldığı matlab kodu (`haa_kompanzasyon.m`).
-* `images/`: Simülasyon sonuçlarına ait grafikler (`Graph 1`, (`Graph 2`)).
+* `readme.md`: Proje hakkında bilgilendirme.
+* `src/`: MATLAB kaynak kodu.
+* `images/`: Simülasyon çıktılarına ait grafiksel veriler.
 
 ---
-*Bu proje TÜBİTAK 2209-A programı kapsamında hazırlanmıştır.
+*Bu çalışma, TÜBİTAK 2209-A Üniversite Öğrencileri Araştırma Projeleri Destekleme Programı standartlarına uygun olarak, akademik araştırma metodolojisi çerçevesinde gerçekleştirilmiştir.*
