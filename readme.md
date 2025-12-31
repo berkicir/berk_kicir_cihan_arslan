@@ -54,7 +54,7 @@ Sistemin aktif güç talebinin 100 kW ve reaktif yükün 80 kVAr olduğu, donan�
 * **Sonuç:** Algoritma, çözüm uzayındaki global optimum noktayı tespit etmiştir. Büyük kademeler yerine "hassas" (küçük değerli) kondansatör gruplarına öncelik vererek **0.00 kVAr** hata ile sistemi dengeye oturtmuştur.
 * **Teknik Çıkarım:** HSA, ayrık değişkenli sistemlerde türevsel yöntemlere ihtiyaç duymadan sıfır hataya yakınsayabilmektedir.
 
-![Nominal Yük Analizi](berk_kicir_cihan_arslan/images/Graph2.png)
+![Nominal Yük Analizi](images/Graph2.png)
 *Grafik 2: Nominal yük altında optimizasyon sürecinin yakınsama grafiği ve kapasitif bölge yerleşimi.*
 
 ### Durum 2: Doyum Bölgesi ve Yetersiz Kapasite (Saturation Case)
@@ -64,7 +64,7 @@ Bu senaryoda, işletmenin endüktif yük talebinin (300 kVAr), panodaki toplam k
 * **Sonuç:** Fiziksel olarak tam kompanzasyonun imkansız olduğu bu durumda, algoritma **çökme (divergence)** yaşamamıştır. Mevcut tüm kondansatörleri devreye alarak hatayı fiziksel olarak mümkün olan en alt limit olan **%37** seviyesine çekmiştir.
 * **Teknik Çıkarım:** Algoritma, kısıtların fiziksel olarak sağlanamadığı durumlarda dahi kararlı yapısını koruyarak "Best-Effort" (En iyi çaba) prensibiyle çalışmaktadır.
 
-![Doyum Bölgesi Analizi](berk_kicir_cihan_arslan/images/Graph1.png)
+![Doyum Bölgesi Analizi](images/Graph1.png)
 *Grafik 1: Donanım sınırlarının zorlandığı senaryoda algoritmanın kararlılık analizi.*
 
 ---
