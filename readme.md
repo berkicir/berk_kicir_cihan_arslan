@@ -42,7 +42,7 @@ Geliştirilen algoritma iki farklı senaryoda test edilmiştir:
     * Donanım sınırlarının zorlandığı durumlarda bile algoritma mevcut kapasiteyi en verimli şekilde kullanarak hatayı minimize etmiştir.
 
 ## 📂 Dosya Yapısı
-* `src/`: Optimizasyonun yapıldığı MATLAB kaynak kodları (`haa_kompanzasyon.m`).
+* `src/`: Optimizasyonun yapıldığı Matlab kodu (`haa_kompanzasyon.m`).
 * `images/`: Simülasyon sonuçlarına ait grafikler.
 
 ---
