@@ -7,22 +7,22 @@
 ## 👨‍🔬 Proje Grubu
 * **Berk KICIR** (241451040)
 * **Cihan ARSLAN** (231451030)
-* **Akademik Danışman:** Dr. Öğr. Üyesi Esra URAY
+* **Danışman:** Dr. Öğr. Üyesi Esra URAY
 
 ---
 
 ## 📑 Proje Özeti (Abstract)
-Elektrik güç sistemlerinde, endüktif ve kapasitif yüklerin dinamik değişimi, şebeke kararlılığını ve enerji verimliliğini doğrudan etkilemektedir. [cite_start]TEDAŞ regülasyonlarına göre, işletmelerin reaktif güç tüketimlerini belirli sınırlar (Endüktif <%20, Kapasitif <%15) içerisinde tutmaları zorunludur[cite: 220, 221, 222].
+Elektrik güç sistemlerinde, endüktif ve kapasitif yüklerin dinamik değişimi, şebeke kararlılığını ve enerji verimliliğini doğrudan etkilemektedir. TEDAŞ regülasyonlarına göre, işletmelerin reaktif güç tüketimlerini belirli sınırlar (Endüktif <%20, Kapasitif <%15) içerisinde tutmaları zorunludur.
 
-Geleneksel kompanzasyon röleleri, genellikle "sıralı anahtarlama" mantığıyla çalışmakta olup, kondansatör kademelerinin **ayrık (discrete)** ve düzensiz (non-uniform) olduğu karmaşık panolarda optimum anahtarlamayı sağlamada yetersiz kalabilmektedir. [cite_start]Bu çalışmada, türev gerektirmeyen stokastik bir optimizasyon yöntemi olan **Harmoni Arama Algoritması (Harmony Search Algorithm - HSA)** kullanılarak, **Kısıtlı Kombinatoryal Optimizasyon (Constrained Combinatorial Optimization)** problemi modellenmiş ve çözülmüştür[cite: 292, 293, 294].
+Geleneksel kompanzasyon röleleri, genellikle "sıralı anahtarlama" mantığıyla çalışmakta olup, kondansatör kademelerinin **ayrık (discrete)** ve düzensiz (non-uniform) olduğu karmaşık panolarda optimum anahtarlamayı sağlamada yetersiz kalabilmektedir.Bu çalışmada, türev gerektirmeyen stokastik bir optimizasyon yöntemi olan **Harmoni Arama Algoritması (Harmony Search Algorithm - HSA)** kullanılarak, **Kısıtlı Kombinatoryal Optimizasyon (Constrained Combinatorial Optimization)** problemi modellenmiş ve çözülmüştür.
 
-[cite_start]Projenin temel amacı, cezalı amaç fonksiyonu (penalized cost function) yaklaşımıyla reaktif güç hatasını minimize etmek ve anahtarlama elemanlarının (kondansatörlerin) ömrünü uzatacak optimum kondansatör kombinasyonunu belirlemektir[cite: 289, 290].
+Projenin temel amacı, cezalı amaç fonksiyonu (penalized cost function) yaklaşımıyla reaktif güç hatasını minimize etmek ve anahtarlama elemanlarının (kondansatörlerin) ömrünü uzatacak optimum kondansatör kombinasyonunu belirlemektir.
 
 ---
 
 ## ⚙️ Yöntem ve Algoritmik Tasarım
 
-Problem, sürekli değişkenler yerine {0,1} durumlarını içeren ayrık bir çözüm uzayında tanımlanmıştır. [cite_start]MATLAB ortamında geliştirilen algoritma, aşağıda belirtilen parametre seti ile işletilmiştir[cite: 299, 300, 301, 302]:
+Problem, sürekli değişkenler yerine (0,1) durumlarını içeren ayrık bir çözüm uzayında tanımlanmıştır. Matlab ortamında geliştirilen algoritma, aşağıda belirtilen parametre seti ile işletilmiştir:
 
 | Parametre | Sembol | Değer | Teknik Açıklama |
 |---|---|---|---|
@@ -32,7 +32,7 @@ Problem, sürekli değişkenler yerine {0,1} durumlarını içeren ayrık bir ç
 | **Maksimum İterasyon** | $MaxIter$ | 10,000 | Yakınsama kriteri. |
 
 ### Amaç Fonksiyonunun Matematiksel Modeli
-[cite_start]Sistemin maliyet fonksiyonu ($Cost$), net reaktif güç hatası ve kısıt ihlalleri üzerinden aşağıdaki gibi formülize edilmiştir[cite: 312, 313, 316]:
+Sistemin maliyet fonksiyonu ($Cost$), net reaktif güç hatası ve kısıt ihlalleri üzerinden aşağıdaki gibi formülize edilmiştir:
 
 $$Min(f) = |Q_{net}| + P_{regülasyon} + P_{donanım}$$
 
@@ -45,7 +45,7 @@ Burada;
 
 ## 📊 Deneysel Bulgular ve Senaryo Analizi
 
-Geliştirilen algoritmanın performansı ve gürbüzlüğü (robustness), iki farklı uç senaryo (Case Study) üzerinde test edilmiştir.
+Geliştirilen algoritmanın performansı iki farklı uç senaryo üzerinde test edilmiştir.
 
 ### Durum 1: Nominal Yüklenme ve Tam Kompanzasyon (Ideal Case)
 Sistemin aktif güç talebinin 100 kW ve reaktif yükün 80 kVAr olduğu, donanım kapasitesinin yeterli olduğu durumdur.
